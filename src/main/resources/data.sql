@@ -1,0 +1,1 @@
+insert into ms_boot (id) values (111);
