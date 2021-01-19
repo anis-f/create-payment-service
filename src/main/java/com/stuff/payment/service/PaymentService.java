@@ -1,8 +1,8 @@
 package com.stuff.payment.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stuff.payment.domain.Payment;
-import com.stuff.payment.repo.PaymentRepository;
+import com.stuff.payment.entity.Payment;
+import com.stuff.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -21,9 +21,10 @@ public class PaymentService implements Serializable {
     private KafkaTemplate<Object, Object> template;
     ObjectMapper objectMapper = new ObjectMapper();
 
-    public void createPayment(Payment payment) throws Exception {
+    public Payment createPayment(Payment payment) throws Exception {
         template.send("payment", objectMapper.writeValueAsString(payment));
-        paymentRepository.save(payment);
+        return payment;
+        //paymentRepository.save(payment);
     };
 
     public Map<String, Set> getPayees() {

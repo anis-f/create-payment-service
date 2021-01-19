@@ -1,6 +1,6 @@
-package com.stuff.payment.repo;
+package com.stuff.payment.repository;
 
-import com.stuff.payment.domain.Payment;
+import com.stuff.payment.entity.Payment;
 import org.springframework.data.repository.CrudRepository;
 
 public interface PaymentRepository extends CrudRepository<Payment, String> {

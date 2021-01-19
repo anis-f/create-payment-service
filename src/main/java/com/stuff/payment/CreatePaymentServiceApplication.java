@@ -1,6 +1,6 @@
 package com.stuff.payment;
 
-import com.stuff.payment.web.PaymentController;
+import com.stuff.payment.controller.PaymentController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

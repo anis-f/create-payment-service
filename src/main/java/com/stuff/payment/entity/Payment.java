@@ -1,10 +1,9 @@
-package com.stuff.payment.domain;
+package com.stuff.payment.entity;
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import java.util.UUID;
 
 @Entity
 public class Payment implements Serializable {
-
 
     @Min(0)
     private double amount;
