@@ -1,6 +1,6 @@
 package com.stuff.payment.service;
 
-import com.stuff.payment.entity.Payment;
+import com.stuff.payment.model.Payment;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;
