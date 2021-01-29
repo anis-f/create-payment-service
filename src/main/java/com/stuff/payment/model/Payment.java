@@ -1,10 +1,11 @@
-package com.stuff.payment.entity;
+package com.stuff.payment.model;
 
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +15,7 @@ import java.util.UUID;
 @Entity
 public class Payment implements Serializable {
 
-    @Min(0)
-    private double amount;
+    private Double amount;
     private String currency;
     private String userId;
     private String payeeId;
@@ -86,7 +86,7 @@ public class Payment implements Serializable {
         this.paymentMethodId = paymentMethodId;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 

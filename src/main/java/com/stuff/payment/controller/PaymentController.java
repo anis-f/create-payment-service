@@ -1,6 +1,8 @@
 package com.stuff.payment.controller;
 
-import com.stuff.payment.entity.Payment;
+import com.stuff.payment.common.exception.BusinessException;
+import com.stuff.payment.common.exception.InvalidInputException;
+import com.stuff.payment.model.Payment;
 import com.stuff.payment.service.PaymentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,9 +49,13 @@ public class PaymentController {
         return paymentService.getPaymentByTransactionId(transactionId);
     };
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Payment createPayment(@RequestBody @Validated Payment payment) throws Exception {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public Payment createPayment(@RequestBody Payment payment) throws Exception, InvalidInputException, BusinessException {
         LOGGER.info("POST /payments");
+        if (payment.getAmount() == null || payment.getAmount() == 0 || payment.getCurrency() == null || payment.getUserId() == null || payment.getPayeeId() == null || payment.getPaymentMethodId() == null)
+            throw new InvalidInputException("Request is missing manadatory field!");
+        if (payment.getAmount() < 0)
+            throw new BusinessException("Payment amount cannot be negative!");
         paymentService.createPayment(payment);
         return payment;
     };

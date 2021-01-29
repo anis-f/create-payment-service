@@ -1,9 +1,10 @@
 package com.stuff.payment.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.stuff.payment.entity.Payment;
+import com.stuff.payment.model.Payment;
 import com.stuff.payment.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,8 @@ import java.util.*;
 @Transactional
 public class PaymentService implements Serializable {
 
+    @Value("${spring.kafka.producer.topic}")
+    private String paymentTopic;
     @Autowired
     private PaymentRepository paymentRepository;
     @Autowired
@@ -22,9 +25,8 @@ public class PaymentService implements Serializable {
     ObjectMapper objectMapper = new ObjectMapper();
 
     public Payment createPayment(Payment payment) throws Exception {
-        template.send("payment", objectMapper.writeValueAsString(payment));
+        template.send(paymentTopic, objectMapper.writeValueAsString(payment));
         return payment;
-        //paymentRepository.save(payment);
     };
 
     public Map<String, Set> getPayees() {
